@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Private Recorder stores audio, handles optional Google Drive and OneDrive backups, and protects saved sign-in state.">
+  <meta name="color-scheme" content="light">
+  <title>Privacy — Private Recorder</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172c36;background:#f5f8f7;line-height:1.65}*{box-sizing:border-box}body{margin:0}a{color:#006655;text-underline-offset:.18em}a:focus-visible{outline:3px solid #d17926;outline-offset:5px}header,main,footer{max-width:860px;margin:auto;padding:28px 24px}header{display:flex;gap:24px;justify-content:space-between;align-items:center;border-bottom:1px solid #d4e1dc}.brand{font-weight:750;text-decoration:none;color:#172c36}nav{display:flex;gap:20px;flex-wrap:wrap;font-size:.94rem}main{padding-top:44px;padding-bottom:60px}h1,h2{line-height:1.2;letter-spacing:-.025em}h1{font-size:clamp(2.2rem,6vw,3.2rem);margin:8px 0 20px}h2{font-size:1.4rem;margin:34px 0 12px}.muted{color:#53666d}.note{padding:20px 24px;background:#e7f1ed;border-left:4px solid #17806c;border-radius:0 10px 10px 0;margin:28px 0}li+li{margin-top:10px}code{overflow-wrap:anywhere}footer{border-top:1px solid #d4e1dc;font-size:.9rem;color:#53666d}.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:12px;background:white;padding:10px;z-index:1}@media(max-width:520px){header{align-items:flex-start;flex-direction:column;gap:12px}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <a class="brand" href="index.html">Private Recorder</a>
+    <nav aria-label="Main navigation"><a href="privacy.html" aria-current="page">Privacy</a><a href="terms.html">Use and limits</a></nav>
+  </header>
+  <main id="main">
+    <h1>Privacy information</h1>
+    <p class="muted">Version 1.1 · Updated 25 September 2026</p>
+    <p>This page describes how the Private Recorder Android app handles recordings and optional cloud backups. The app’s purpose is to save audio you choose to record and preserve copies in accounts you choose to connect.</p>
+    <h2>Information stored on the phone</h2>
+    <p>The app stores microphone audio, file sizes and hashes, recording/session identifiers, device-clock and elapsed-time values, recording configuration, and operational events such as starts, stops, and detected interruptions. These originals are kept in the app’s private storage, excluded from Android’s automatic app-data backup.</p>
+    <p>Cloud features also store account identifiers, the connected Google account email address, authorization state, destination information, settings, and backup receipts. A receipt records the files and hashes verified during a transfer. It is not continuous monitoring of the remote files.</p>
+    <h2>Optional transfers to your cloud accounts</h2>
+    <p>Cloud backup is disabled until you connect a provider. When connected, completed audio files and their associated metadata and event snapshots are sent directly from the phone to that provider. The app does not route recordings through a separate app-operated server.</p>
+    <ul>
+      <li><strong>Google Drive:</strong> the app requests <code>https://www.googleapis.com/auth/drive.file</code>. This scope covers files created or opened through the app. Backups are stored in its <strong>Private Recorder Evidence</strong> folder in My Drive.</li>
+      <li><strong>OneDrive:</strong> the app requests <code>Files.ReadWrite.AppFolder</code> for its application folder, plus <code>offline_access</code> to renew authorization for background transfers. Backups are placed in <strong>Private Recorder Evidence</strong> inside that application folder.</li>
+    </ul>
+    <p>Google and Microsoft handle account sign-in and cloud storage under their own account settings and privacy terms. The recorder does not create public sharing links or automatically send recordings to other people. Access you grant through the cloud account’s own sharing controls is separate.</p>
+    <h2>Security and encryption</h2>
+    <p>Transfers use HTTPS. Saved authorization state is encrypted using a device-bound Android Keystore key. Provider bearer credentials are not forwarded to redirected download hosts. Access tokens and authorization state are not included in audio exports.</p>
+    <div class="note"><strong>The app does not add end-to-end or password encryption to recordings.</strong> Audio and metadata are uploaded as ordinary readable files over HTTPS, and exported ZIP files are not password-encrypted by the app. Protect the phone, connected accounts, and any exported copies.</div>
+    <p>Before accepting an upload, the app downloads and hashes the remote content. This verifies matching bytes at that time; it does not protect a copy from later deletion or changes made outside the app.</p>
+    <h2>Retention, deletion, and disconnecting</h2>
+    <ul>
+      <li>The app does not automatically delete old phone recordings after backup. They continue to use phone storage.</li>
+      <li>Uninstalling the app or clearing its app data removes its private phone archive and saved app state. Preserve copies first if you need to keep them.</li>
+      <li>Disconnecting a cloud provider stops future scheduled backups and removes its authorization state saved by this app. A request already sent may have reached the provider. Disconnecting leaves existing phone recordings and cloud copies intact.</li>
+      <li>Delete unwanted cloud files using that provider’s controls. Deleting a cloud file does not delete its phone original. Historical receipts do not guarantee that a deleted or changed cloud file will be detected or uploaded again.</li>
+      <li>You can additionally remove the app’s account authorization in the relevant provider’s account settings. Copies you export or share separately must be managed at their respective destinations.</li>
+    </ul>
+    <h2>Advertising and analytics</h2>
+    <p>The app has no advertising or app analytics feature. It does not sell recordings or use them for advertising. Account sign-in and cloud requests still involve the selected provider, and the operating system or provider may process service information under its own policies.</p>
+    <p>These information pages contain no forms, scripts, advertising, or tracking pixels.</p>
+    <p><a href="index.html">Back to app information</a> · <a href="terms.html">Personal-use information and limits</a></p>
+  </main>
+  <footer>Private Recorder · <a href="index.html">App information</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Use and limits</a></footer>
+</body>
+</html>

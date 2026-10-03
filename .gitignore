@@ -1,0 +1,15 @@
+.tools/
+.signing/
+dist/
+.gradle/
+.idea/
+**/build/
+local.properties
+*.iml
+*.jks
+*.keystore
+# Private recordings and transfer receipts must never be committed.
+/evidence/
+/recorder-backup.local.json
+*.pyc
+__pycache__/
